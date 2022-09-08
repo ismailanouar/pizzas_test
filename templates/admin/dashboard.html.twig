@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tableau de board{% endblock %}
+
+{% block body %}
+ {% if app.user %}
+    <div class="mb-10">
+        Bienvenue {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
+    </div>
+{% endif %}
+     
+    <h1>Tableau de board</h1>
+
+{% endblock %}

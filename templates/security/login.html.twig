@@ -1,42 +1,62 @@
-{% extends 'base.html.twig' %}
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Pizza - Connexion{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+            
+        <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Josefin+Sans" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Nothing+You+Could+Do" rel="stylesheet">
+        
+        <link rel="stylesheet" href="{{ asset('assets/css/login.css') }}">
 
-{% block title %}Log in!{% endblock %}
+    </head>
+    <body>
+        <form class="login" method="post">
+            {% if error %}
+                <div class="alert alert-danger" style="border: 1px solid transparent;margin: 5px 0px;text-align: center;background-color: #cf2c2c;">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
 
-{% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+            {% if app.user %}
+                <div class="mb-3">
+                    Bienvenue {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
+                </div>
+            {% endif %}
+            <fieldset>
+                <legend class="legend">Connexion</legend>
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
+                <div class="input">
+                    <input type="email" value="{{ last_username }}" name="email" placeholder="Email" id="inputEmail" autocomplete="email" required autofocus />
+                    <span><i class="fa fa-envelope-o"></i></span>
+                </div>
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+                <div class="input">
+                    <input type="password" name="password" id="inputPassword" placeholder="Mot de passe"  autocomplete="current-password" required />
+                    <span><i class="fa fa-lock"></i></span>
+                </div>
 
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
+                <input type="hidden" name="_csrf_token"
+                    value="{{ csrf_token('authenticate') }}"
+                >
 
-    {#
-        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-        See https://symfony.com/doc/current/security/remember_me.html
 
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
-        </div>
-    #}
+                {#
+                    Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+                    See https://symfony.com/doc/current/security/remember_me.html
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form>
-{% endblock %}
+                    <div class="checkbox mb-3">
+                        <label>
+                            <input type="checkbox" name="_remember_me"> Remember me
+                        </label>
+                    </div>
+                #}
+
+                <button class="submit" type="submit">
+                    <i class="fa fa-long-arrow-right"></i>
+                </button>
+            </fieldset>
+        </form>
+    </body>
+
+    <script src="https://use.fontawesome.com/c3eded73e7.js"></script>
+    <script src="{{ asset('assets/js/login.js') }} " defer></script>
