@@ -10,13 +10,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/pizza')]
+#[Route('/admin/pizza')]
 class PizzaController extends AbstractController
 {
     #[Route('/', name: 'app_pizza_index', methods: ['GET'])]
     public function index(PizzaRepository $pizzaRepository): Response
     {
-        return $this->render('pizza/index.html.twig', [
+        return $this->render('admin/pizza/index.html.twig', [
             'pizzas' => $pizzaRepository->findAll(),
         ]);
     }
@@ -34,7 +34,7 @@ class PizzaController extends AbstractController
             return $this->redirectToRoute('app_pizza_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('pizza/new.html.twig', [
+        return $this->renderForm('admin/pizza/new.html.twig', [
             'pizza' => $pizza,
             'form' => $form,
         ]);
@@ -43,7 +43,7 @@ class PizzaController extends AbstractController
     #[Route('/{id}', name: 'app_pizza_show', methods: ['GET'])]
     public function show(Pizza $pizza): Response
     {
-        return $this->render('pizza/show.html.twig', [
+        return $this->render('admin/pizza/show.html.twig', [
             'pizza' => $pizza,
         ]);
     }
@@ -60,13 +60,13 @@ class PizzaController extends AbstractController
             return $this->redirectToRoute('app_pizza_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('pizza/edit.html.twig', [
+        return $this->renderForm('admin/pizza/edit.html.twig', [
             'pizza' => $pizza,
             'form' => $form,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_pizza_delete', methods: ['POST'])]
+    #[Route('/{id}/delete', name: 'app_pizza_delete', methods: ['POST'])]
     public function delete(Request $request, Pizza $pizza, PizzaRepository $pizzaRepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$pizza->getId(), $request->request->get('_token'))) {
