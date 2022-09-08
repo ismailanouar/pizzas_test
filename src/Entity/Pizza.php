@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\IngredientRepository;
+use App\Repository\PizzaRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: IngredientRepository::class)]
-class Ingredient
+#[ORM\Entity(repositoryClass: PizzaRepository::class)]
+class Pizza
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -21,12 +21,15 @@ class Ingredient
     #[ORM\Column]
     private ?float $price = null;
 
-    #[ORM\ManyToMany(targetEntity: Pizza::class, mappedBy: 'ingredients')]
-    private Collection $pizzas;
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $picture = null;
+
+    #[ORM\ManyToMany(targetEntity: Ingredient::class, inversedBy: 'pizzas')]
+    private Collection $ingredients;
 
     public function __construct()
     {
-        $this->pizzas = new ArrayCollection();
+        $this->ingredients = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -58,29 +61,38 @@ class Ingredient
         return $this;
     }
 
-    /**
-     * @return Collection<int, Pizza>
-     */
-    public function getPizzas(): Collection
+    public function getPicture(): ?string
     {
-        return $this->pizzas;
+        return $this->picture;
     }
 
-    public function addPizza(Pizza $pizza): self
+    public function setPicture(?string $picture): self
     {
-        if (!$this->pizzas->contains($pizza)) {
-            $this->pizzas->add($pizza);
-            $pizza->addIngredient($this);
+        $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Ingredient>
+     */
+    public function getIngredients(): Collection
+    {
+        return $this->ingredients;
+    }
+
+    public function addIngredient(Ingredient $ingredient): self
+    {
+        if (!$this->ingredients->contains($ingredient)) {
+            $this->ingredients->add($ingredient);
         }
 
         return $this;
     }
 
-    public function removePizza(Pizza $pizza): self
+    public function removeIngredient(Ingredient $ingredient): self
     {
-        if ($this->pizzas->removeElement($pizza)) {
-            $pizza->removeIngredient($this);
-        }
+        $this->ingredients->removeElement($ingredient);
 
         return $this;
     }
