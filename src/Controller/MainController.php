@@ -39,4 +39,16 @@ class MainController extends AbstractController
         
     }
 
+    #[Route('mes-commandes', name: 'app_panier')]
+    public function panier(): Response
+    {
+        return $this->render('home/panier.html.twig', []);
+    }
+
+    #[Route('mes-allergies', name: 'app_allergies')]
+    public function allergies(): Response
+    {
+        return $this->render('home/allergies.html.twig', []);
+    }
+
 }

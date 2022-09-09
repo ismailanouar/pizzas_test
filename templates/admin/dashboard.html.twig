@@ -1,44 +1,56 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Tableau de board{% endblock %}
+{% block title %}Administration - gestion des entités{% endblock %}
 
 {% block body %}
 
-<section class="ftco-section">
+    <section class="ftco-section">
       	<div class="row justify-content-center mb-5 pb-3">
-          <div class="col-md-6 heading-section ftco-animate text-center">
-            <h2 class="mb-4">Tableau de board</h2>
-            <p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
-          </div>
+         	<div class="heading-section ftco-animate text-center">
+				<h2 class="mb-4">Tableau de board</h2>
+				<p class="flip"><span class="deg1"></span><span class="deg2"></span><span class="deg3"></span></p>
+				<div class="text-center ftco-animate">
+					<span class="subheading">Mes créations</span>
+					<p class="mb-4 mb-md-5">Vous pouvez modifier tous les recettes des pizzas</p>
+					<p>
+						<a href="{{ path('app_ingredient_index') }}" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">Ajouter des ingrédients</a> 
+						<a href="{{ path('app_pizza_index') }}" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">Ajouter une pizza</a>
+					</p>
+				</div>
+          	</div>
         </div>
         <div class="row">
-        	<div class="col-lg-6 justify-content-center d-flex ftco-animate">
-        		<div class="staff">
-      				<div class="block-18 text-center">
-		              <div class="text">
-		              	<div class="icon"><span style="font-size: 100px;" class="flaticon-pizza-1"></span></div>
-		              </div>
-		            </div>
-      				<div class="info text-center">
-      					<h3><a href="{{ path('app_pizza_index') }}">Nombre total de nos pizzas</a></h3>
-      					<span class="position" style="font-size: 70px">{{total_pizzas}}</span>
-      				</div>
-        		</div>
-        	</div>
-        	<div class="col-lg-6 justify-content-center d-flex ftco-animate">
-        		<div class="staff">
-					<div class="block-18 text-center">
-		              <div class="text">
-		              	<div class="icon"><span style="font-size: 100px;" class="flaticon-chef"></span></div>
-		              </div>
-		            </div>
-      				<div class="info text-center">
-      					<h3><a href="{{ path('app_ingredient_index') }}">Nombre total des ingredients</a></h3>
-      					<span class="position" style="font-size: 70px">{{total_ingredients}}</span>
-      				</div>
-        		</div>
-        	</div>
+			<a href="{{ path('app_pizza_index') }}">
+				<div class="col-lg-6 justify-content-end d-flex ftco-animate">
+					<div class="staff">
+						<div class="block-18 text-center">
+						<div class="text">
+							<div class="icon"><span style="font-size: 100px;" class="flaticon-pizza-1"></span></div>
+						</div>
+						</div>
+						<div class="info text-center">
+							<h3><a href="{{ path('app_pizza_index') }}">Nombre total de nos pizzas</a></h3>
+							<span class="position" style="font-size: 70px">{{total_pizzas}}</span>
+						</div>
+					</div>
+				</div>
+			</a>
+			<a href="{{ path('app_ingredient_index') }}">
+				<div class="col-lg-6 justify-content-start d-flex ftco-animate">
+					<div class="staff">
+						<div class="block-18 text-center">
+						<div class="text">
+							<div class="icon"><span style="font-size: 100px;" class="flaticon-chef"></span></div>
+						</div>
+						</div>
+						<div class="info text-center">
+							<h3><a href="{{ path('app_ingredient_index') }}">Nombre total des ingredients</a></h3>
+							<span class="position" style="font-size: 70px">{{total_ingredients}}</span>
+						</div>
+					</div>
+				</div>
+			</a>
         </div>
-</section>
+	</section>
     
 {% endblock %}

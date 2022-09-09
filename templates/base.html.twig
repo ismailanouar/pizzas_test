@@ -48,20 +48,26 @@
     <body>
      	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
 	        <div class="container">
-		        <a class="navbar-brand" href="#"><span class="flaticon-pizza-1 mr-1"></span>Pizza<br><small>Delicous</small></a>
+		        <a class="navbar-brand" href="{{ path('app_home') }}"><span class="flaticon-pizza-1 mr-1"></span>Pizza<br><small>Delicous</small></a>
 		        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 		            <span class="oi oi-menu"></span> Menu
 		        </button>
                 <div class="collapse navbar-collapse" id="ftco-nav">
+                {% set currentPath = app.request.get('_route') %}
                     <ul class="navbar-nav ml-auto">
-                        {% if is_granted('ROLE_ADMIN') %}
-                        <li class="nav-item"><a href="{{ path('admin_app_gestion') }}" class="nav-link">Administration</a></li>
-                        <li class="nav-item"><a href="{{ path('admin_app_dashboard') }}" class="nav-link">Tableau de bord</a></li>
-                        <li class="nav-item"><a href="{{ path('app_home') }}" class="nav-link">Voir l'espace public</a></li>
-                        <li class="nav-item"><a href="{{ path('app_ingredient_index') }}" class="nav-link">Nos ingrédients</a></li>
-                        <li class="nav-item"><a href="{{ path('app_pizza_index') }}" class="nav-link">Nos pizzas</a></li>
+                        {% if is_granted('ROLE_ADMIN') and (currentPath in ["app_home"]) %}
+                        <li class="nav-item {% if currentPath == "app_home" %} active {% endif %}"><a href="{{ path('app_home') }}" class="nav-link">Accueil</a></li>
+                        <li class="nav-item"><a href="{{ path('admin_app_gestion') }}" class="nav-link">Voir l'espace administration</a></li>
+                        {% elseif is_granted('ROLE_ADMIN') and (currentPath not in ["app_home"]) %}
+                        <li class="nav-item {% if currentPath == "admin_app_gestion" %} active {% endif %}"><a href="{{ path('admin_app_gestion') }}" class="nav-link">Administration</a></li>
+                        <li class="nav-item {% if currentPath == "app_home" %} active {% endif %}"><a href="{{ path('app_home') }}" class="nav-link">Voir l'espace public</a></li>
+                        <li class="nav-item {% if currentPath == "app_ingredient_index" %} active {% endif %}"><a href="{{ path('app_ingredient_index') }}" class="nav-link">Nos ingrédients</a></li>
+                        <li class="nav-item {% if currentPath == "app_pizza_index" %} active {% endif %}"><a href="{{ path('app_pizza_index') }}" class="nav-link">Nos pizzas</a></li>
                         {% else %}
-                        <li class="nav-item"><a href="{{ path('index') }}" class="nav-link">Accueil</a></li>
+                        <li class="nav-item {% if currentPath == "app_home" %} active {% endif %}"><a href="{{ path('index') }}" class="nav-link">Accueil</a></li>
+                        <li class="nav-item {% if currentPath == "app_allergies" %} active {% endif %}"><a href="{{ path('app_allergies') }}" class="nav-link active">Mes allergies</a></li>
+                        <li class="nav-item {% if currentPath == "app_home" %} active {% endif %}"><a href="{{ path('app_home') }}" class="nav-link">Nos pizzas</a></li>
+                        <li class="nav-item {% if currentPath == "app_panier" %} active {% endif %}"><a href="{{ path('app_panier') }}" class="nav-link">Mes commandes</a></li>
                         {% endif %}
                     </ul>
                 </div>

@@ -10,7 +10,7 @@ use App\Repository\PizzaRepository;
 
 class AdminController extends AbstractController
 {
-    #[Route('admin/dashboard', name: 'admin_app_dashboard')]
+    #[Route('/admin', name: 'admin_app_gestion')]
     public function dashboard(IngredientRepository $ingredientRepository, PizzaRepository $pizzaRepository): Response
     {
         $ingredients = $ingredientRepository->findAll();
@@ -23,12 +23,6 @@ class AdminController extends AbstractController
             'total_ingredients' => $total_ingredients,
             'total_pizzas'      => $total_pizzas,
         ]);
-    }
-
-    #[Route('admin/', name: 'admin_app_gestion')]
-    public function index(): Response
-    {
-        return $this->render('admin/index.html.twig', []);
     }
 
 }
