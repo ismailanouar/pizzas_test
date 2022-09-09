@@ -57,7 +57,7 @@
                         {% if is_granted('ROLE_ADMIN') %}
                         <li class="nav-item"><a href="{{ path('admin_app_gestion') }}" class="nav-link">Administration</a></li>
                         <li class="nav-item"><a href="{{ path('admin_app_dashboard') }}" class="nav-link">Tableau de bord</a></li>
-                        <li class="nav-item"><a href="{{ path('index') }}" class="nav-link">Voir l'espace public</a></li>
+                        <li class="nav-item"><a href="{{ path('app_home') }}" class="nav-link">Voir l'espace public</a></li>
                         <li class="nav-item"><a href="{{ path('app_ingredient_index') }}" class="nav-link">Nos ingrédients</a></li>
                         <li class="nav-item"><a href="{{ path('app_pizza_index') }}" class="nav-link">Nos pizzas</a></li>
                         {% else %}
@@ -68,15 +68,14 @@
 		    </div>
 	  </nav>
     <!-- END nav -->
-    {% if is_granted('ROLE_ADMIN') %} <div class="container"> {% endif %}
      {% if app.user %}
-        <div class="mb-10">
+        <div class="container mb-10">
             Bienvenue {{ app.user.userIdentifier }}, {% if is_granted('ROLE_ADMIN') %} (Admin) {% endif %}<a href="{{ path('app_logout') }}">Déconnexion</a>
         </div>
     {% endif %}
     {% block body %}
    
     {% endblock %}
-    {% if is_granted('ROLE_ADMIN') %}</div>{% endif %}
+
     </body>
 </html>

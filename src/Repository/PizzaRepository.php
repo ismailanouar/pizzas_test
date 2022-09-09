@@ -11,7 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
  *
  * @method Pizza|null find($id, $lockMode = null, $lockVersion = null)
  * @method Pizza|null findOneBy(array $criteria, array $orderBy = null)
- * @method Pizza[]    findAll()
+ * @method Pizza[]    findAll(array $date_creation, array $orderBy = DESC)
  * @method Pizza[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class PizzaRepository extends ServiceEntityRepository

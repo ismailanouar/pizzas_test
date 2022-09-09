@@ -12,14 +12,8 @@ class MainController extends AbstractController
     #[Route('/home', name: 'app_home')]
     public function home(PizzaRepository $pizzaRepository): Response
     {
-        $user = $this->getUser();
         $pizzas = $pizzaRepository->findAll();
         $total_pizzas = count($pizzas);
-
-        if(in_array("ROLE_ADMIN", $user->getRoles())){
-            return $this->redirectToRoute("admin_app_gestion");
-            exit;
-        }
         
         return $this->render('home/index.html.twig', [
             'pizzas' => $pizzas,
@@ -30,7 +24,19 @@ class MainController extends AbstractController
     #[Route('/', name: 'index')]
     public function index(): Response
     {
-        return $this->redirectToRoute("app_home");
+
+        if ($this->getUser()) {
+            if(in_array("ROLE_ADMIN", $this->getUser()->getRoles())){
+                return $this->redirectToRoute("admin_app_gestion");
+                exit;
+            }else{
+                return $this->redirectToRoute("app_home");
+                exit;
+            }
+        }else{
+            return $this->redirectToRoute("app_login");
+        }
+        
     }
 
 }

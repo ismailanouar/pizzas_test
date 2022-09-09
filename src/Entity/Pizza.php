@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\PizzaRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: PizzaRepository::class)]
@@ -27,9 +28,13 @@ class Pizza
     #[ORM\ManyToMany(targetEntity: Ingredient::class, inversedBy: 'pizzas')]
     private Collection $ingredients;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $date_creation = null;
+
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
+        $this->date_creation = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -93,6 +98,18 @@ class Pizza
     public function removeIngredient(Ingredient $ingredient): self
     {
         $this->ingredients->removeElement($ingredient);
+
+        return $this;
+    }
+
+    public function getDateCreation(): ?\DateTimeInterface
+    {
+        return $this->date_creation;
+    }
+
+    public function setDateCreation(?\DateTimeInterface $date_creation): self
+    {
+        $this->date_creation = $date_creation;
 
         return $this;
     }

@@ -155,7 +155,7 @@
     		<div class="row no-gutters d-flex">
             {% for pizza in pizzas %}
             {% set ingredients = pizza.ingredients %}
-    			<div class="col-lg-4 d-flex ftco-animate">
+    			<div class="col-lg-4 d-flex ftco-animate" style="height: 200px;">
     				<div class="services-wrap d-flex">
     					<a href="#" class="img" style="background-image: url({{ asset('uploads/' ~ pizza.picture )}});"></a>
     					<div class="text p-4">
