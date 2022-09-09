@@ -60,21 +60,23 @@
                         <li class="nav-item"><a href="{{ path('index') }}" class="nav-link">Voir l'espace public</a></li>
                         <li class="nav-item"><a href="{{ path('app_ingredient_index') }}" class="nav-link">Nos ingrédients</a></li>
                         <li class="nav-item"><a href="{{ path('app_pizza_index') }}" class="nav-link">Nos pizzas</a></li>
+                        {% else %}
+                        <li class="nav-item"><a href="{{ path('index') }}" class="nav-link">Accueil</a></li>
                         {% endif %}
                     </ul>
                 </div>
 		    </div>
 	  </nav>
     <!-- END nav -->
-    <div class="container">
+    {% if is_granted('ROLE_ADMIN') %} <div class="container"> {% endif %}
      {% if app.user %}
         <div class="mb-10">
-            Bienvenue {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Déconnexion</a>
+            Bienvenue {{ app.user.userIdentifier }}, {% if is_granted('ROLE_ADMIN') %} (Admin) {% endif %}<a href="{{ path('app_logout') }}">Déconnexion</a>
         </div>
     {% endif %}
     {% block body %}
    
     {% endblock %}
-    </div>
+    {% if is_granted('ROLE_ADMIN') %}</div>{% endif %}
     </body>
 </html>
