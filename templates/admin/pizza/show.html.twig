@@ -21,7 +21,7 @@
             </tr>
             <tr>
                 <th>Picture</th>
-                <td>{{ pizza.picture }}</td>
+                <td><div><img src="{{ asset('uploads/' ~ pizza.picture) }}" width="200" height="200" alt="pizza ~ {{ pizza.name}}" /></div></td>
             </tr>
         </tbody>
     </table>

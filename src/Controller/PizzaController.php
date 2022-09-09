@@ -29,6 +29,20 @@ class PizzaController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var UploadedFile $uploadedFile */
+            $uploadedFile = $form['picture']->getData();
+            //Here we define path to destination of uploaded image of pizza
+            $destination = $this->getParameter('kernel.project_dir').'/public/uploads';
+
+            $originalFilename = pathinfo($uploadedFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $newFilename = uniqid().'.'.$uploadedFile->guessExtension();
+            $uploadedFile->move(
+                $destination,
+                $newFilename
+            );
+
+            $pizza->setPicture($newFilename);
+
             $pizzaRepository->add($pizza, true);
 
             return $this->redirectToRoute('app_pizza_index', [], Response::HTTP_SEE_OTHER);

@@ -6,6 +6,7 @@ use App\Entity\Pizza;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class PizzaType extends AbstractType
 {
@@ -14,7 +15,9 @@ class PizzaType extends AbstractType
         $builder
             ->add('name')
             ->add('price')
-            ->add('picture')
+            ->add('picture', FileType::class, [
+                'mapped' => false
+            ])
             ->add('ingredients')
         ;
     }
