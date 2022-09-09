@@ -14,7 +14,8 @@ class PizzaType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('price')
+            //Non editable
+            //->add('price')
             ->add('picture', FileType::class, [
                 'mapped' => false
             ])

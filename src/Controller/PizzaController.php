@@ -27,7 +27,12 @@ class PizzaController extends AbstractController
         $pizza = new Pizza();
         $form = $this->createForm(PizzaType::class, $pizza);
         $form->handleRequest($request);
-
+        $ingredients = $form['ingredients']->getData();
+        $price = 0;
+        //dd($form['ingredients']->getData());
+        foreach($ingredients as $ingredient){
+            $price = $price + $ingredient->getPrice();
+        }
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var UploadedFile $uploadedFile */
             $uploadedFile = $form['picture']->getData();
@@ -42,6 +47,7 @@ class PizzaController extends AbstractController
             );
 
             $pizza->setPicture($newFilename);
+            $pizza->setPrice($price);
 
             $pizzaRepository->add($pizza, true);
 
@@ -68,7 +74,16 @@ class PizzaController extends AbstractController
         $form = $this->createForm(PizzaType::class, $pizza);
         $form->handleRequest($request);
 
+        $ingredients = $form['ingredients']->getData();
+        $price = 0;
+        //dd($form['ingredients']->getData());
+        foreach($ingredients as $ingredient){
+            $price = $price + $ingredient->getPrice();
+        }
+
+
         if ($form->isSubmitted() && $form->isValid()) {
+            $pizza->setPrice($price);
             $pizzaRepository->add($pizza, true);
 
             return $this->redirectToRoute('app_pizza_index', [], Response::HTTP_SEE_OTHER);
