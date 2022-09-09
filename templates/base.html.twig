@@ -65,8 +65,8 @@
                         <li class="nav-item {% if currentPath == "app_pizza_index" %} active {% endif %}"><a href="{{ path('app_pizza_index') }}" class="nav-link">Nos pizzas</a></li>
                         {% else %}
                         <li class="nav-item {% if currentPath == "app_home" %} active {% endif %}"><a href="{{ path('index') }}" class="nav-link">Accueil</a></li>
-                        <li class="nav-item {% if currentPath == "app_allergies" %} active {% endif %}"><a href="{{ path('app_allergies') }}" class="nav-link active">Mes allergies</a></li>
                         <li class="nav-item {% if currentPath == "app_home" %} active {% endif %}"><a href="{{ path('app_home') }}" class="nav-link">Nos pizzas</a></li>
+                        <li class="nav-item {% if currentPath == "app_allergies" %} active {% endif %}"><a href="{{ path('app_allergies') }}" class="nav-link active">Mes allergies</a></li>
                         <li class="nav-item {% if currentPath == "app_panier" %} active {% endif %}"><a href="{{ path('app_panier') }}" class="nav-link">Mes commandes</a></li>
                         {% endif %}
                     </ul>

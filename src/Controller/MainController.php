@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\PizzaRepository;
+use App\Repository\IngredientRepository;
 
 class MainController extends AbstractController
 {
@@ -46,9 +47,14 @@ class MainController extends AbstractController
     }
 
     #[Route('mes-allergies', name: 'app_allergies')]
-    public function allergies(): Response
+    public function allergies(PizzaRepository $pizzaRepository, IngredientRepository $ingredientRepository): Response
     {
-        return $this->render('home/allergies.html.twig', []);
+        $ingredients = $ingredientRepository->findAll();
+        $pizzas = $pizzaRepository->findAll();
+
+        return $this->render('home/allergies.html.twig', [
+            "ingredients"  => $ingredients,
+        ]);
     }
 
 }
