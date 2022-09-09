@@ -12,7 +12,7 @@
                 <th>Name</th>
                 <th>Price</th>
                 <th>Picture</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -20,7 +20,7 @@
             <tr>
                 <td>{{ pizza.id }}</td>
                 <td>{{ pizza.name }}</td>
-                <td>{{ pizza.price }}</td>
+                <td>{{ pizza.price ~ ' €'}}</td>
                 <td><img src="{{ asset('uploads/' ~ pizza.picture) }}" width="100" height="80" alt="pizza ~ {{ pizza.name}}" /></td>
                 <td>
                     <a href="{{ path('app_pizza_show', {'id': pizza.id}) }}">show</a>
@@ -35,5 +35,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_pizza_new') }}">Create new</a>
+    <a class="ml-2 btn btn-white btn-outline-white" href="{{ path('app_pizza_new') }}">Create new</a>
 {% endblock %}
