@@ -50,9 +50,9 @@
         </div>
         <div id="allergies" class="container">
             <div class="list-group">
-                <form method="post" action="{{ path('app_allergies_post') }}" onsubmit="return confirm('Vous êtes vraiment sûr des ingrédients dont vous êtes allergique ?');">
+                <form method="post" action="{{ path('app_allergies') }}" onsubmit="return confirm('Vous êtes vraiment sûr des ingrédients dont vous êtes allergique ?');">
                     {% for ingredient in ingredients %}
-                        <input type="checkbox" id="{{'ingredient_' ~ ingredient.id }}" name="{{'ingredient_' ~ ingredient.name }}" value="{{ ingredient.id }}">
+                        <input type="checkbox" id="{{'ingredient_' ~ ingredient.id }}" {% for allergie in allergies %} {{(allergie.id == ingredient.id ) ? 'checked="checked"' : ''}} {% endfor %} name="ingredient[]" value="{{ ingredient.id }}">
                         <label class="list-group-item" for="{{'ingredient_' ~ ingredient.id }}">{{ ingredient.name | upper }}</label>
                     {% endfor %}
                     <div class="text-center">
