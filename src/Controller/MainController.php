@@ -30,12 +30,28 @@ class MainController extends AbstractController
     #[Route('/mes-commandes', name: 'app_panier')]
     public function panier(): Response
     {
+        //This page accessible just for Client not for an admin
+        //Check Role of User
+        
+        if(in_array("ROLE_ADMIN", $this->getUser()->getRoles())){
+            return $this->redirectToRoute("app_home");
+            exit;
+        }
+        
         return $this->render('home/panier.html.twig', []);
     }
 
     #[Route('/mes-allergies', name: 'app_allergies', methods: ['GET','POST'])]
     public function allergies(Request $request, IngredientRepository $ingredientRepository, AllergieRepository $allergieRepository): Response
     {
+        //This page accessible just for Client not for an admin
+        //Check Role of User
+        
+        if(in_array("ROLE_ADMIN", $this->getUser()->getRoles())){
+            return $this->redirectToRoute("app_home");
+            exit;
+        }
+       
         $ingredients = $ingredientRepository->findAll();
 
         $allergies = $this->getUser()->getAllergies();
