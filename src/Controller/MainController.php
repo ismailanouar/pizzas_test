@@ -41,13 +41,13 @@ class MainController extends AbstractController
         
     }
 
-    #[Route('mes-commandes', name: 'app_panier')]
+    #[Route('/mes-commandes', name: 'app_panier')]
     public function panier(): Response
     {
         return $this->render('home/panier.html.twig', []);
     }
 
-    #[Route('mes-allergies', name: 'app_allergies')]
+    #[Route('/mes-allergies', name: 'app_allergies')]
     public function allergies(PizzaRepository $pizzaRepository, IngredientRepository $ingredientRepository): Response
     {
         $ingredients = $ingredientRepository->findAll();
