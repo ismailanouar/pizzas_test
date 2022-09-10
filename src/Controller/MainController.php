@@ -2,13 +2,12 @@
 
 namespace App\Controller;
 
-use App\Repository\PizzaRepository;
-use App\Repository\AllergieRepository;
-use App\Repository\IngredientRepository;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\Annotation\Route;
+use App\Repository\PizzaRepository;
+use App\Repository\IngredientRepository;
 
 class MainController extends AbstractController
 {

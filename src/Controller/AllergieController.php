@@ -13,13 +13,23 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/allergie')]
 class AllergieController extends AbstractController
 {
-    /*#[Route('/', name: 'app_allergie_index', methods: ['GET'])]
+    #[Route('/', name: 'app_allergie_index', methods: ['GET'])]
     public function index(AllergieRepository $allergieRepository): Response
     {
+        $allergies = $allergieRepository->findOneBy(array('userAllergie' => $this->getUser()),array('id' => 'ASC'));
+        dd(count($allergies));
+        if($this->getUser()->getAllergie() == null ){
+            return $this->redirectToRoute("app_allergie_new");
+            exit;
+        }else{
+            return $this->redirectToRoute("app_allergie_new");
+            exit;
+        }
+
         return $this->render('allergie/index.html.twig', [
-            'allergies' => $allergieRepository->findAll(),
+            'allergies' => $allergies,
         ]);
-    }*/
+    }
 
     #[Route('/new', name: 'app_allergie_new', methods: ['GET', 'POST'])]
     public function new(Request $request, AllergieRepository $allergieRepository): Response
