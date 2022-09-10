@@ -2,11 +2,13 @@
 
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use App\Repository\PizzaRepository;
+use App\Repository\AllergieRepository;
+use App\Repository\IngredientRepository;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Repository\PizzaRepository;
-use App\Repository\IngredientRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class MainController extends AbstractController
 {
@@ -56,5 +58,20 @@ class MainController extends AbstractController
             "ingredients"  => $ingredients,
         ]);
     }
+
+    //app_allergies_post
+    #[Route('/post_allergies', name: 'app_allergies_post', methods: ['POST'])]
+    public function save_allergies(Request $request): Response
+    {
+        if ($request->getMethod() == Request::METHOD_POST){
+            $data = $request->getContent();
+             
+            dd($data);
+        }
+        
+        return $this->render('home/allergies.html.twig', []);
+    }
+
+
 
 }

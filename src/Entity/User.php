@@ -28,6 +28,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private ?string $password = null;
 
+    #[ORM\OneToOne(inversedBy: 'userAllergie', cascade: ['persist', 'remove'])]
+    private ?Allergie $allergie = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -96,5 +99,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public function getAllergie(): ?Allergie
+    {
+        return $this->allergie;
+    }
+
+    public function setAllergie(?Allergie $allergie): self
+    {
+        $this->allergie = $allergie;
+
+        return $this;
     }
 }
