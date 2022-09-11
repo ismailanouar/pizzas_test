@@ -140,7 +140,7 @@
         	</div>
     	</div>
     </section>
-
+	{% if total_pizzas > 0 %}
     <section class="ftco-section">
     	<div class="container">
     		<div class="row justify-content-center mb-5 pb-3">
@@ -153,6 +153,12 @@
     	</div>
     	<div class="container-wrap">
     		<div class="row no-gutters d-flex">
+			{# GET All allergies of User #}
+			{% set myAllergies = [] %}
+			{% for allergie in allergies %}
+				{% set myAllergies = myAllergies|merge([allergie.id]) %}
+			{% endfor %}
+			
             {% for pizza in pizzas %}
             {% set ingredients = pizza.ingredients %}
     			<div class="col-lg-4 d-flex ftco-animate" style="height: 200px;">
@@ -160,7 +166,15 @@
     					<a href="#" class="img" style="background-image: url({{ asset('uploads/' ~ pizza.picture )}});"></a>
     					<div class="text p-4">
     						<h3>{{pizza.name  | upper}}</h3>
-    						<p> {% for ingredient in ingredients %} {{ingredient.name ~ ' ,'}} {% endfor %}</p>
+    						<p> {% for ingredient in ingredients %}
+									{% if ingredient.id in myAllergies %}
+										{% set pizzaAllergene = false %}	
+										<span style='color: red;'> {{ingredient.name ~ ' ,'}}  </span>
+									{% else %}
+										{{ingredient.name ~ ' ,'}}
+									{% endif %}
+							   {% endfor %}
+							   </p>
     						<p class="price"><span>{{pizza.price ~ ' €'}}</span> <a href="#" class="ml-2 btn btn-white btn-outline-white">Commander</a></p>
     					</div>
     				</div>
@@ -169,6 +183,7 @@
     		</div>
     	</div>
     </section>
+	{% endif %}
 
     <section class="ftco-gallery">
     	<div class="container-wrap">
@@ -283,7 +298,7 @@
                                                 <h3><a href="#">{{pizza.name}}</a></h3>
                                                 <div style="height: 100px"><p> {% for ingredient in ingredients %} {{ingredient.name ~ ' ,'}} {% endfor %}</p></div>
                                                 <p class="price"><span>{{pizza.price ~ ' €'}}</span></p>
-                                                <p><a href="#" class="btn btn-white btn-outline-white">Add to cart</a></p>
+                                                <p><a href="#" class="btn btn-white btn-outline-white">Commander</a></p>
                                             </div>
                                         </div>
                                 </div>

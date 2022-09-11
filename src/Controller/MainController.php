@@ -19,11 +19,19 @@ class MainController extends AbstractController
     public function home(PizzaRepository $pizzaRepository): Response
     {
         $pizzas = $pizzaRepository->findAll();
+        $allergies = $this->getUser()->getAllergies();
+
+        if($allergies != null){
+            //Get Ingredients
+            $allergies = $allergies->getIngredients()->toArray();
+        }
+
         $total_pizzas = count($pizzas);
         
         return $this->render('home/index.html.twig', [
             'pizzas' => $pizzas,
-            'total_pizzas' => $total_pizzas
+            'total_pizzas' => $total_pizzas,
+            "allergies" => $allergies,
         ]);
     }
 
@@ -37,7 +45,7 @@ class MainController extends AbstractController
             return $this->redirectToRoute("app_home");
             exit;
         }
-        
+
         return $this->render('home/panier.html.twig', []);
     }
 
