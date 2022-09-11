@@ -5,17 +5,17 @@
 {% block body %}
 
 {% if total_pizzas > 0 %}
-    <section class="home-slider owl-carousel img" style="background-image: url('assets/images/bg_1.jpg');">
-        <div class="slider-item" style="background-image: url('assets/images/bg_3.jpg');">
+    <section class="home-slider owl-carousel img" style="background-image: url({{ asset('assets/images/bg_1.jpg') }});">
+        <div class="slider-item" style="background-image: url({{ asset('assets/images/bg_3.jpg') }});">
             <div class="overlay"></div>
             <div class="container">
                 <div class="row slider-text justify-content-center align-items-center" data-scrollax-parent="true">
 
                     <div class="col-md-7 col-sm-12 text-center ftco-animate">
                         <span class="subheading">Welcome</span>
-                    <h1 class="mb-4">We cooked your desired Pizza Recipe</h1>
-                    <p class="mb-4 mb-md-5">A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
-                    <p><a href="#" class="btn btn-primary p-3 px-xl-4 py-xl-3">Commander</a> <a href="#" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View Menu</a></p>
+                    <h1 class="mb-4">Nos derniers recettes 🍕 </h1>
+                    <p class="mb-4 mb-md-5">On n'aime bien voir nos client savourée 😋</p>
+                    <p><a href="#" class="btn btn-primary p-3 px-xl-4 py-xl-3">Commander</a> <a href="#" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">Menu</a></p>
                     </div>
 
                 </div>
@@ -34,8 +34,8 @@
                     <p class="mb-4 mb-md-5">{% for ingredient in ingredients %} {{ingredient.name ~ ' ,'}} {% endfor %}</p>
                     <p><a href="#" class="btn btn-primary p-3 px-xl-4 py-xl-3">Commander</a> <a href="#" class="btn btn-white btn-outline-white p-3 px-xl-4 py-xl-3">View Menu</a></p>
                     </div>
-                    <div class="col-md-6 ftco-animate">
-                        <img src="{{ asset('uploads/' ~ pizza.picture )}}" class="img-fluid" alt="">
+                    <div class="col-md-6 ftco-animate menu-wrap">
+                        <img width="400" height="400" src="{{ asset('uploads/' ~ pizza.picture )}}" class="img-fluid" alt="" style="border-radius: 50%;">
                     </div>
 
                 </div>
@@ -160,22 +160,24 @@
 			{% endfor %}
 			
             {% for pizza in pizzas %}
+			{% set pizzaAllergene = false %}
             {% set ingredients = pizza.ingredients %}
-    			<div class="col-lg-4 d-flex ftco-animate" style="height: 200px;">
+    			<div class="col-lg-4 d-flex ftco-animate" style="height: 230px;">
     				<div class="services-wrap d-flex">
     					<a href="#" class="img" style="background-image: url({{ asset('uploads/' ~ pizza.picture )}});"></a>
     					<div class="text p-4">
     						<h3>{{pizza.name  | upper}}</h3>
     						<p> {% for ingredient in ingredients %}
 									{% if ingredient.id in myAllergies %}
-										{% set pizzaAllergene = false %}	
+										{% set pizzaAllergene = true %}	
 										<span style='color: red;'> {{ingredient.name ~ ' ,'}}  </span>
 									{% else %}
 										{{ingredient.name ~ ' ,'}}
 									{% endif %}
 							   {% endfor %}
 							   </p>
-    						<p class="price"><span>{{pizza.price ~ ' €'}}</span> <a href="#" class="ml-2 btn btn-white btn-outline-white">Commander</a></p>
+							   <h6>{% if pizzaAllergene %}<span style="font-family: 'Nothing You Could Do', cursive;font-size: 20px;color: #ef0606;font-weight: bold;">Pizza Allergène</span>{% endif %}</h6>
+    							<div style="position: absolute; bottom:10px;"><p class="price"><span>{{pizza.price ~ ' €'}}</span> <a href="#" class="ml-2 btn btn-white btn-outline-white">Commander</a></p></div>
     					</div>
     				</div>
     			</div>
@@ -454,7 +456,7 @@
         <div class="row">
           <div class="col-md-12 text-center">
 
-            <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved <i class="icon-heart" aria-hidden="true"></i></p>
+            <p>🍕 Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved 🍕</p>
  
           </div>
         </div>
